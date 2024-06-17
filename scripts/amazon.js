@@ -63,6 +63,28 @@ document.querySelector(".js-products-grid").innerHTML = productsHTML;
 // Add to cart functionality
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
-    console.log(button.dataset);
+    const productName = button.dataset.productName;
+
+    const existingItem = cart.find((item) => item.productName === productName);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({
+        productName,
+        quantity: 1,
+      });
+    }
+
+    let cartQuantity = 0;
+
+    cart.forEach((item) => {
+      cartQuantity += item.quantity;
+    });
+
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+
+    console.log(cartQuantity);
+    console.log(cart);
   });
 });
